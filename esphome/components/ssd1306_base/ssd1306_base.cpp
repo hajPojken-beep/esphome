@@ -135,6 +135,7 @@ void SSD1306::setup() {
         this->command(0x12);
         break;
       case SH1107_MODEL_128_64:
+      case SH1107_MODEL_128_128:
         // Not used, but prevents build warning
         break;
     }
@@ -152,6 +153,7 @@ void SSD1306::setup() {
   this->command(SSD1306_COMMAND_SET_VCOM_DETECT);
   switch (this->model_) {
     case SH1107_MODEL_128_64:
+    case SH1107_MODEL_128_128:
       this->command(0x35);
       break;
     default:
@@ -211,7 +213,7 @@ bool SSD1306::is_sh1106_() const {
          this->model_ == SH1106_MODEL_128_64;
 }
 bool SSD1306::is_sh1107_() const {
-  return this->model_ == SH1107_MODEL_128_64;
+  return this->model_ == SH1107_MODEL_128_64 || this->model_ == SH1107_MODEL_128_128;
 }
 bool SSD1306::is_ssd1305_() const {
   return this->model_ == SSD1305_MODEL_128_64 || this->model_ == SSD1305_MODEL_128_64;
@@ -248,6 +250,7 @@ void SSD1306::turn_off() {
 int SSD1306::get_height_internal() {
   switch (this->model_) {
     case SH1107_MODEL_128_64:
+    case SH1107_MODEL_128_128:
       return 128;
     case SSD1306_MODEL_128_32:
     case SSD1306_MODEL_64_32:
@@ -276,6 +279,7 @@ int SSD1306::get_width_internal() {
     case SH1106_MODEL_128_64:
     case SSD1305_MODEL_128_32:
     case SSD1305_MODEL_128_64:
+    case SH1107_MODEL_128_128:
       return 128;
     case SSD1306_MODEL_96_16:
     case SH1106_MODEL_96_16:
@@ -343,6 +347,8 @@ const char *SSD1306::model_str_() {
       return "SH1106 64x48";
     case SH1107_MODEL_128_64:
       return "SH1107 128x64";
+    case SH1107_MODEL_128_128:
+      return "SH1107 128x128";
     case SSD1305_MODEL_128_32:
       return "SSD1305 128x32";
     case SSD1305_MODEL_128_64:
