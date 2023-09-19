@@ -21,12 +21,14 @@ CONF_FLIP_Y = "flip_y"
 CONF_OFFSET_X = "offset_x"
 CONF_OFFSET_Y = "offset_y"
 
+
 MODELS = {
     "SSD1306_128X32": SSD1306Model.SSD1306_MODEL_128_32,
     "SSD1306_128X64": SSD1306Model.SSD1306_MODEL_128_64,
     "SSD1306_96X16": SSD1306Model.SSD1306_MODEL_96_16,
     "SSD1306_64X48": SSD1306Model.SSD1306_MODEL_64_48,
     "SSD1306_64X32": SSD1306Model.SSD1306_MODEL_64_32,
+    "SSD1306_72X40": SSD1306Model.SSD1306_MODEL_72_40,
     "SH1106_128X32": SSD1306Model.SH1106_MODEL_128_32,
     "SH1106_128X64": SSD1306Model.SH1106_MODEL_128_64,
     "SH1106_96X16": SSD1306Model.SH1106_MODEL_96_16,
@@ -65,8 +67,8 @@ SSD1306_SCHEMA = display.FULL_DISPLAY_SCHEMA.extend(
         cv.Optional(CONF_FLIP_Y, default=True): cv.boolean,
         # Offsets determine shifts of memory location to LCD rows/columns,
         # and this family of controllers supports up to 128x128 screens
-        cv.Optional(CONF_OFFSET_X, default=0): cv.int_range(min=0, max=128),
-        cv.Optional(CONF_OFFSET_Y, default=0): cv.int_range(min=0, max=128),
+        cv.Optional(CONF_OFFSET_X, default=0): cv.int_range(min=-64, max=64),
+        cv.Optional(CONF_OFFSET_Y, default=0): cv.int_range(min=-64, max=64),
         cv.Optional(CONF_INVERT, default=False): cv.boolean,
     }
 ).extend(cv.polling_component_schema("1s"))
