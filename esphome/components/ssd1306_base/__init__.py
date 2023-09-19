@@ -95,6 +95,6 @@ async def setup_ssd1306(var, config):
         cg.add(var.init_invert(config[CONF_INVERT]))
     if CONF_LAMBDA in config:
         lambda_ = await cg.process_lambda(
-            config[CONF_LAMBDA], [(display.DisplayBufferRef, "it")], return_type=cg.void
+            config[CONF_LAMBDA], [(display.DisplayBuffer, "it")], return_type=cg.void
         )
         cg.add(var.set_writer(lambda_))
